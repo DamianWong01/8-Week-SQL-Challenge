@@ -11,13 +11,17 @@ Danny wants to analyze customer data to understand their visiting patterns, spen
 1. What is the total amount each customer spent at the restaurant?
 ```sql
 SELECT
-sales.customer_id,
-SUM(menu.price) AS total_sales
-FROM dannys_diner.sales
-INNER JOIN  dannys_diner.menu
+	sales.customer_id,
+	SUM(menu.price) AS total_sales
+FROM
+	dannys_diner.sales
+INNER JOIN
+	dannys_diner.menu
 	ON sales.product_id = menu.product_id
-GROUP BY sales.customer_id
-ORDER BY sales.customer_id ASC;
+GROUP BY 
+	sales.customer_id
+ORDER BY
+	sales.customer_id ASC;
 ```
 | customer_id | total_sales |
 |-------------|-------------|
@@ -27,10 +31,13 @@ ORDER BY sales.customer_id ASC;
 
 2. How many days has each customer visited the restaurant?
 ```sql
-SELECT customer_id,
-COUNT(DISTINCT order_date) AS visit_count
-FROM dannys_diner.sales
-GROUP BY customer_id;
+SELECT
+	customer_id,
+	COUNT(DISTINCT order_date) AS visit_count
+FROM 
+	dannys_diner.sales
+GROUP BY 
+	customer_id;
 ```
 | customer_id | visit_count |
 |-------------|-------------|
@@ -240,7 +247,7 @@ SELECT
 FROM
 	dannys_diner.sales
 INNER JOIN points_calc
-  ON sales.product_id = points_calc.product_id
+  	ON sales.product_id = points_calc.product_id
 GROUP BY
 	sales.customer_id
 ORDER BY
