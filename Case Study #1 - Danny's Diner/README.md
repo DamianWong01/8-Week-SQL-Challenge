@@ -9,6 +9,8 @@ Danny wants to analyze customer data to understand their visiting patterns, spen
 
 ## Case Study Questions
 1. What is the total amount each customer spent at the restaurant?
+
+To find out how much each customer spent, we need to sum the price of all items they purchased, and then grouping by `customer_id`.
 ```sql
 SELECT
 	sales.customer_id,
@@ -30,6 +32,8 @@ ORDER BY
 | C           | 36          |
 
 2. How many days has each customer visited the restaurant?
+
+To determine the number of days each customer visited the restaurant, we need to count the distinct order dates for each customer.
 ```sql
 SELECT
 	customer_id,
@@ -46,6 +50,8 @@ GROUP BY
 | C           | 2           |
 
 3. What was the first item from the menu purchased by each customer?
+
+To find the first item purchased by each customer, we need to tank the purchases by order date and select the top-ranked item for each customer.
 ```sql
 WITH ordered_sales AS (
 	SELECT
@@ -80,6 +86,8 @@ WHERE
 | C           | ramen        |
 
 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+To identify the most purchased item, we nede to count the occurrences of each product and order the results in descending order, limiting the output to the top result.
 ```sql
 SELECT 
     menu.product_name, 
@@ -100,6 +108,8 @@ LIMIT 1;
 | ramen        | 8              |
 
 5. Which item was the most popular for each customer?
+
+To find the most popular item for each customer, we need to count the purchases of each product by each customer and rank them, selecting the top-ranked items.
 ```sql
 WITH most_popular_orders AS (
 	SELECT
@@ -138,6 +148,8 @@ WHERE
 | C           | ramen        | 3              |
 
 6. Which item was purchased first by the customer after they became a member?
+
+To find the first item purchased by each customer after they became a member, we need to filter the sales after the join date and rank the purchases by order date, selecting the top-ranked item.
 ```sql
 WITH purchases_after_membership AS (
 	SELECT
@@ -172,6 +184,8 @@ WHERE
 | B           | sushi        |
 
 7. Which item was purchased just before the customer became a member?
+
+To find the item purchased just before the customer became a member, we need to filter the sales before the join date and rank the purchases by order date in descending order, selecting the top-ranked item.
 ```sql
 WITH purchases_before_membership AS (
 	SELECT
@@ -207,6 +221,8 @@ WHERE
 | B           | sushi        |
 
 8. What is the total items and amount spent for each member before they became a member?
+
+To find the total items and amount spent for each member before they became a member, we need to filter the sales before the join date and sum the prices of the items.
 ```sql
 SELECT
 	sales.customer_id,
@@ -230,6 +246,8 @@ ORDER BY
 | B           | 3             | 40          |
 
 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+
+To calculate the points for each customer, we need to apply the points multiplier for sushi and sum the points for all items.
 ```sql
 WITH points_calc AS (
 	SELECT
@@ -260,6 +278,8 @@ ORDER BY
 | C           | 360          |
 
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+
+To calculate the points for customers A and B at the end of January, considering the 2x points for the first week after joining, we need to apply the points multiplier based on the join date and order date.
 ```sql
 WITH dates_calc AS (
 	SELECT
