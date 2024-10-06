@@ -164,6 +164,18 @@ ORDER BY
 
 ### B. Runner and Customer Experience
 1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+
+```sql
+SELECT 
+	EXTRACT(WEEK FROM registration_date + 3) AS week,
+	COUNT(runner_id)
+FROM 
+	runners
+GROUP BY
+	week
+ORDER BY
+	week;
+```
 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
 4. What was the average distance travelled for each customer?
